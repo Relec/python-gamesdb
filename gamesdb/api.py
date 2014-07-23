@@ -60,7 +60,9 @@ class API(object):
         # APIException, passing forward the pages contents (which generally gives some indication of the error.
         if query_args is not None:
             get_params = urlencode_no_plus.urlencode_no_plus(query_args)
-            response = urllib.urlopen(api_url+'%s' % get_params)
+            req = urllib2.Request(api_url+'%s' % get_params)
+            req.add_unredirected_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31')
+            response = urllib2.urlopen(req)
         else:
             response = urllib.urlopen(api_url)
         page = response.read()
